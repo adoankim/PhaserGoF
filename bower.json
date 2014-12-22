@@ -1,0 +1,26 @@
+{
+  "name": "PhaserGoF",
+  "version": "0.1.0",
+  "homepage": "https://github.com/adoankim/PhaserGoF",
+  "authors": [
+    "adoankim <adoankim@alumnos.uvigo.es>"
+  ],
+  "description": "Yet another Game of Life implementation in Phaser.io",
+  "main": "public/index.html",
+  "keywords": [
+    "JS",
+    "Phaser.io",
+    "HTML5"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.2.1"
+  }
+}
