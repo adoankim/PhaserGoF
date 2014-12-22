@@ -1,0 +1,31 @@
+{
+  "name": "PhaserGoF",
+  "version": "0.1.0",
+  "description": "Yet another Game of Life test in Phaser.io",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adoankim/PhaserGoF.git"
+  },
+  "keywords": [
+    "JS",
+    "Phaser.io",
+    "HTML5"
+  ],
+  "author": "adoankim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adoankim/PhaserGoF/issues"
+  },
+  "homepage": "https://github.com/adoankim/PhaserGoF",
+  "devDependencies" : {
+    "bower" : "" 
+  },
+  "scripts" : {
+    "init" : "chmod +x init.sh && ./init.sh",
+    "clean" : "chmod +x clean.sh && ./clean.sh"
+  }
+}
