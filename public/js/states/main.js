@@ -7,7 +7,8 @@ var MainState = function(){}
 
 MainState.prototype.preload = function(){}
 MainState.prototype.create = function(){
-    this.game.stage.backgroundColor = '#FAED96';
+    this.game.stage.backgroundColor = '#FAED96'
+    this.game.state.start('running')
 }
 MainState.prototype.update = function(){}
 
@@ -15,7 +16,7 @@ MainState.prototype.update = function(){}
 define(function () {
     return {
         getState: function () {
-            return new MainState();
+            return new MainState()
         }
     };
 });
