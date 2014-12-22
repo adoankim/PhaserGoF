@@ -20,6 +20,10 @@ var Polygon = function(){
         ctx.stroke()
     }
     
+    PolygonClass.prototype.drawRect = function(ctx, sideWidth, style){
+        ctx.fillRect(0, 0, sideWidth, sideWidth);
+        ctx.stroke();
+    }
     
     /**
      *  privated method that controls the default values for style argument instance

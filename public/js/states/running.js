@@ -2,24 +2,25 @@
  * running.js
  * Running game state 
  */
- 
+
 var RunningState = function(){
 
     var RunningStateClass = function(){
         
-    }
+    };
     
-    RunningStateClass.prototype.preload = function(){}
+    RunningStateClass.prototype.preload = function(){};
     
     RunningStateClass.prototype.create = function(){
-        this.game.stage.backgroundColor = '#FAED95'
+        this.game.stage.backgroundColor = '#FAED95';
         var self = this;
         require(['js/utils/polygons.js'], function(polygons){
             self.Polygons = polygons.getInstance();
-            drawGrid(self)
+            drawGrid(self);
             
-            this.numberOfCells = this.game.stage.width*this.game.stage.height*0.01;
-            console.log(this.numberOfCells);
+            self.numberOfCells = self.game.stage.width * self.game.stage.height * 0.01;
+            
+            diagonal(self)
         })
     }
     
@@ -27,6 +28,47 @@ var RunningState = function(){
         
     }
 
+    /**
+     * Privated method that draw a diagonal based on the width of the main canvas
+     * @TODO interpolate with the height in order to achieve the real diagonal
+     */
+    function diagonal(self){
+        var bound = self.game.stage.width / 10;
+        for(var i = 0; i < bound; i++){
+            drawRect(self, [i, i], {'color' : '#FF0000'}, spriteAlphaEasing);
+        }
+    }
+    
+    /**
+     * Private function for alpha easing filter
+     * @param sprite Phaser.Sprite
+     */
+    function spriteAlphaEasing(sprite){
+        self.game.add.tween(sprite).to({alpha : 0}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+    }
+
+    /**
+     * Privated method for draw a rectangle given its position, style {color} and a filtering effect.
+     * @param self context object
+     * @param pos [col, row]
+     * @param style {color}
+     * @param effects function(sprite)
+     */
+    function drawRect(self, pos, style, effects){
+        var rect = self.game.add.bitmapData(8, 8);
+        rect.ctx.fillStyle = style.color
+        self.Polygons.drawRect(rect.ctx, 8)
+        var x = pos[0]*10+5
+        var y = pos[1]*10+5
+        var rectSprite = self.game.add.sprite(x, y, rect)
+        rectSprite.anchor.setTo(0.5, 0.5)
+        if(typeof(effects) === "function"){
+            effects(rectSprite)
+        }
+    }
+    
+    
+    
     
     /**
      * Privated method that draws a parallel lines from to a given direction
