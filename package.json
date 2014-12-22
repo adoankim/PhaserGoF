@@ -2,7 +2,7 @@
   "name": "PhaserGoF",
   "version": "0.1.0",
   "description": "Yet another Game of Life test in Phaser.io",
-  "main": "public/index.html",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/adoankim/PhaserGoF",
   "devDependencies" : {
-    "bower" : "" 
+    "bower" : "" ,
+    "http-server" : ""
   },
   "scripts" : {
     "init" : "chmod +x init.sh && ./init.sh",
-    "clean" : "chmod +x clean.sh && ./clean.sh"
+    "clean" : "chmod +x clean.sh && ./clean.sh",
+    "serve" : "node node_modules/http-server/bin/http-server"
   }
 }
