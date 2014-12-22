@@ -1,0 +1,28 @@
+body, html{
+    margin:0;
+    padding:0;
+    background-color:#5AC4C3;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#gameCanvas, #desc{
+    margin: auto;
+    position: absolute;
+    width: 800px;
+}
+#gameCanvas{
+    top:100px; left: 0;  right: 0;
+    height: 600px;
+    border: 10px solid #9FCF61;
+}
+
+#desc{
+    display:block;
+    top: 710px; left: 0; right: 0;
+    background-color:#9FCF61;
+    color:white;
+}
+
+#desc div{
+    margin:10px;
+}
