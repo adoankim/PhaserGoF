@@ -17,6 +17,9 @@ var RunningState = function(){
         require(['js/utils/polygons.js'], function(polygons){
             self.Polygons = polygons.getInstance();
             drawGrid(self)
+            
+            this.numberOfCells = this.game.stage.width*this.game.stage.height*0.01;
+            console.log(this.numberOfCells);
         })
     }
     
@@ -46,30 +49,36 @@ var RunningState = function(){
      * @param self context object
      */
     function drawGrid(self){
-        
+        var stage = self.game.stage;
         self.grid = self.game.add.bitmapData(self.game.stage.width, self.game.stage.height)
         self.game.add.sprite(0, 0, self.grid)
        
         var style = {'lineWidth' : 0.5, 'color' : '#FCDB73'}
-       
+        
         //First we draw Y direction
-        var paramY = {'step' : 10, 'style' : style, 'bound' : self.game.stage.height};
+        var paramY = {'step' : 10, 'style' : style, 'bound' : stage.height};
         drawGridDirection(self, paramY, function(step){
             return { 
                 'from' : {'x' : 0, 'y' : step},
-                'to' : {'x' : self.game.stage.width, 'y' : step}
+                'to' : {'x' : stage.width, 'y' : step}
             }
         })
         
         //Then we draw X direction
-        var paramX = {'step' : 10, 'style' : style, 'bound' : self.game.stage.width};
+        var paramX = {'step' : 10, 'style' : style, 'bound' : stage.width};
         drawGridDirection(self, paramX, function(step){
             return { 
                 'from' : {'x' : step, 'y' : 0},
-                'to' : {'x' : step, 'y' : self.stage.height}
+                'to' : {'x' : step, 'y' : stage.height}
             }
         })
         
+        //And finally we draw the grid bounds
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : 0.5}, {'x' : stage.width, 'y' : 0.5}, style)
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : stage.height-0.5}, {'x' : stage.width, 'y' :  stage.height-0.5}, style)
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0.5, 'y' : 0}, {'x' : 0.5, 'y' : stage.height}, style)
+        self.Polygons.drawLine(self.grid.ctx, {'x' : stage.width-0.5, 'y' : 0}, {'x' : stage.width-0.5, 'y' : stage.height}, style)
+       
 
     }
 
