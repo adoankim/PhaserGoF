@@ -1,4 +1,8 @@
 /**
+ * @author       adoankim <adoankim@alumnos.uvigo.es>
+ * @copyright    2014 adoankim
+ * @license      {@link https://github.com/adoankim/PhaserGoF/blob/master/LICENSE|MIT License}
+ * 
  * running.js
  * Running game state 
  */
@@ -20,13 +24,11 @@ var RunningState = function(){
             
             self.numberOfCells = self.game.stage.width * self.game.stage.height * 0.01;
             
-            diagonal(self)
-        })
-    }
+            diagonal(self);
+        });
+    };
     
-    RunningStateClass.prototype.update = function(){
-        
-    }
+    RunningStateClass.prototype.update = function(){};
 
     /**
      * Privated method that draw a diagonal based on the width of the main canvas
@@ -56,14 +58,14 @@ var RunningState = function(){
      */
     function drawRect(self, pos, style, effects){
         var rect = self.game.add.bitmapData(8, 8);
-        rect.ctx.fillStyle = style.color
-        self.Polygons.drawRect(rect.ctx, 8)
-        var x = pos[0]*10+5
-        var y = pos[1]*10+5
-        var rectSprite = self.game.add.sprite(x, y, rect)
-        rectSprite.anchor.setTo(0.5, 0.5)
+        rect.ctx.fillStyle = style.color;
+        self.Polygons.drawRect(rect.ctx, 8);
+        var x = pos[0] * 10 + 5;
+        var y = pos[1] * 10 + 5;
+        var rectSprite = self.game.add.sprite(x, y, rect);
+        rectSprite.anchor.setTo(0.5, 0.5);
         if(typeof(effects) === "function"){
-            effects(rectSprite)
+            effects(rectSprite);
         }
     }
     
@@ -77,12 +79,12 @@ var RunningState = function(){
      * @param getDrawDirectionParams function(updatedStep)
      */
     function drawGridDirection(self, params, getDrawDirectionParams){
-        var dirStep = params.step
-        var style = params.style
+        var dirStep = params.step;
+        var style = params.style;
         while(dirStep < params.bound){
-            var dirParams = getDrawDirectionParams(dirStep)
-            self.Polygons.drawLine(self.grid.ctx, dirParams.from, dirParams.to, style)
-            dirStep += params.step
+            var dirParams = getDrawDirectionParams(dirStep);
+            self.Polygons.drawLine(self.grid.ctx, dirParams.from, dirParams.to, style);
+            dirStep += params.step;
         }
     }
     
@@ -92,10 +94,10 @@ var RunningState = function(){
      */
     function drawGrid(self){
         var stage = self.game.stage;
-        self.grid = self.game.add.bitmapData(self.game.stage.width, self.game.stage.height)
-        self.game.add.sprite(0, 0, self.grid)
+        self.grid = self.game.add.bitmapData(self.game.stage.width, self.game.stage.height);
+        self.game.add.sprite(0, 0, self.grid);
        
-        var style = {'lineWidth' : 0.5, 'color' : '#FCDB73'}
+        var style = {'lineWidth' : 0.5, 'color' : '#FCDB73'};
         
         //First we draw Y direction
         var paramY = {'step' : 10, 'style' : style, 'bound' : stage.height};
@@ -103,8 +105,8 @@ var RunningState = function(){
             return { 
                 'from' : {'x' : 0, 'y' : step},
                 'to' : {'x' : stage.width, 'y' : step}
-            }
-        })
+            };
+        });
         
         //Then we draw X direction
         var paramX = {'step' : 10, 'style' : style, 'bound' : stage.width};
@@ -112,20 +114,20 @@ var RunningState = function(){
             return { 
                 'from' : {'x' : step, 'y' : 0},
                 'to' : {'x' : step, 'y' : stage.height}
-            }
-        })
+            };
+        });
         
         //And finally we draw the grid bounds
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : 0.5}, {'x' : stage.width, 'y' : 0.5}, style)
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : stage.height-0.5}, {'x' : stage.width, 'y' :  stage.height-0.5}, style)
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0.5, 'y' : 0}, {'x' : 0.5, 'y' : stage.height}, style)
-        self.Polygons.drawLine(self.grid.ctx, {'x' : stage.width-0.5, 'y' : 0}, {'x' : stage.width-0.5, 'y' : stage.height}, style)
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : 0.5}, {'x' : stage.width, 'y' : 0.5}, style);
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : stage.height-0.5}, {'x' : stage.width, 'y' :  stage.height-0.5}, style);
+        self.Polygons.drawLine(self.grid.ctx, {'x' : 0.5, 'y' : 0}, {'x' : 0.5, 'y' : stage.height}, style);
+        self.Polygons.drawLine(self.grid.ctx, {'x' : stage.width-0.5, 'y' : 0}, {'x' : stage.width-0.5, 'y' : stage.height}, style);
        
 
     }
 
     return new RunningStateClass();
-}
+};
 
 //define module export
 define(function () {
