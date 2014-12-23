@@ -24,7 +24,8 @@
   "devDependencies" : {
     "bower" : "" ,
     "http-server" : "",
-    "mocha" : ""
+    "mocha" : "",
+    "chai" : ""
   },
   "scripts" : {
     "init" : "chmod +x init.sh && ./init.sh",
