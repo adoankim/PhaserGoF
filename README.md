@@ -15,3 +15,16 @@ Run http-server instance with default configurations (working dir: public/, port
 
 ###clean
 To clean all third party dependencies: **npm run clean**
+
+Files Structure
+---------------
+
+| Directory         | Description                         | 
+| ----------------- |-----------------------------------  |
+| public/           | where all the client code lives     |
+| public/css/       | -                                   |
+| public/js/        | -                                   |
+| public/js/states/ | State classes screen directory      |
+| public/js/unit/   | Model classes directory             |
+| public/js/utils/  | -                                   |
+| test/             | -                                   |
