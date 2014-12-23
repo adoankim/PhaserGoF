@@ -23,7 +23,8 @@
   "homepage": "https://github.com/adoankim/PhaserGoF",
   "devDependencies" : {
     "bower" : "" ,
-    "http-server" : ""
+    "http-server" : "",
+    "mocha" : ""
   },
   "scripts" : {
     "init" : "chmod +x init.sh && ./init.sh",
