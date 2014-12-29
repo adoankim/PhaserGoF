@@ -10,13 +10,13 @@ var chai = require('chai');
 var assert = chai.assert,
     expect = chai.expect,
     should = chai.should(); 
-var Graph = require('../public/js/unit/Graph.js');
+var DirectedGraph = require('../public/js/unit/DirectedGraph.js');
 
 
-describe('Graph', function(){
+describe('DirectedGraph', function(){
     describe('#addVertex(v)', function(){
         it('should permit to add a vertex to the graph', function(){
-          var g = new Graph();
+          var g = new DirectedGraph();
           var v = 'v';
           var newVertex = g.addVertex(v);
           newVertex.should.equal(v);
@@ -25,7 +25,7 @@ describe('Graph', function(){
     
     describe('#getVertices()', function(){
         it('should return graph vertices', function(){
-            var g = new Graph();
+            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -41,7 +41,7 @@ describe('Graph', function(){
     
     describe('#addEdge(v, w)', function(){
         it('should add an edge between two given vertices', function(){
-            var g = new Graph();
+            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -59,7 +59,7 @@ describe('Graph', function(){
     
     describe('#getEdges(v)', function(){
         it('should return the outbound edges from a given vertex', function(){
-            var g = new Graph();
+            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -77,7 +77,7 @@ describe('Graph', function(){
     
     describe('#getInboundGrade(v)', function(){
         it('should return the inbound grade of a given vertex', function(){
-            var g = new Graph();
+            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';

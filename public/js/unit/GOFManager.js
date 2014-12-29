@@ -5,7 +5,7 @@
  * 
  * GOFManager.js
  */
-function GOFManager(Graph){
+function GOFManager(DirectedGraph){
     var GOFManagerClass = function(){
     }
     
@@ -18,10 +18,10 @@ function GOFManager(Graph){
 
 //define module export
 if(typeof(define) === 'function'){
-    define(['unit/Graph'], function (Graph) {
+    define(['unit/DirectedGraph'], function (DirectedGraph) {
         return {
             getInstance: function () {
-                return new GOFManager(Graph);
+                return new GOFManager(DirectedGraph);
             }
         };
     });
@@ -30,6 +30,6 @@ if(typeof(define) === 'function'){
 
 //for testing purposes
 module.exports = function(){
-    var Graph = require('./Graph.js');
-    return GOFManager(Graph);
+    var DirectedGraph = require('./DirectedGraph.js');
+    return GOFManager(DirectedGraph);
 }
