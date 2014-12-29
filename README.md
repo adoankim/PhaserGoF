@@ -3,6 +3,11 @@ PhaserGoF
 
 Yet another Game of Life test in Phaser.io
 
+Solution
+--------
+To calculate wich cells lives or dies, a directed Graph is built 
+and the inbound grade for each vertex is used in order to calculate next 
+generation cells.
 
 Basic commands
 --------------
@@ -16,8 +21,8 @@ Run http-server instance with default configurations (working dir: public/, port
 ###clean
 To clean all third party dependencies: **npm run clean**
 
-Files Structure
----------------
+Directory structure
+-------------------
 
 | Directory         | Description                         | 
 | ----------------- |-----------------------------------  |
