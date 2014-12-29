@@ -28,6 +28,14 @@ function DirectedGraph(_){
     }
     
     /**
+     * Method that if a given labeled vertex exists on the graph or not
+     * @return boolean 
+     */
+    DirectedGraphClass.prototype.hasVertex = function(v){
+        return this.vertices.indexOf(v) !== -1
+    }
+    
+    /**
      * Retrieve the vertices list of the graph
      * @return graph vertices
      */

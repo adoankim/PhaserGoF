@@ -15,17 +15,27 @@ var DirectedGraph = require('../public/js/unit/DirectedGraph.js');
 
 describe('DirectedGraph', function(){
     describe('#addVertex(v)', function(){
+        var g = new DirectedGraph();
         it('should permit to add a vertex to the graph', function(){
-          var g = new DirectedGraph();
           var v = 'v';
           var newVertex = g.addVertex(v);
           newVertex.should.equal(v);
         })
     })
     
+    describe('#hasVertex(v)', function(){
+        var g = new DirectedGraph();
+        it('should permit to check if a given labeled vertex exist on the graph', function(){
+          var v = 'v';
+          g.addVertex(v);
+          var vertexExist = g.hasVertex(v);
+          expect(vertexExist).to.be.ok;
+        })
+    })
+    
     describe('#getVertices()', function(){
+        var g = new DirectedGraph();
         it('should return graph vertices', function(){
-            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -40,8 +50,8 @@ describe('DirectedGraph', function(){
     })
     
     describe('#addEdge(v, w)', function(){
+        var g = new DirectedGraph();
         it('should add an edge between two given vertices', function(){
-            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -58,8 +68,8 @@ describe('DirectedGraph', function(){
     })
     
     describe('#getEdges(v)', function(){
+        var g = new DirectedGraph();
         it('should return the outbound edges from a given vertex', function(){
-            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
@@ -76,8 +86,8 @@ describe('DirectedGraph', function(){
     
     
     describe('#getInboundGrade(v)', function(){
+        var g = new DirectedGraph();
         it('should return the inbound grade of a given vertex', function(){
-            var g = new DirectedGraph();
             var v1 = 'a';
             var v2 = 'b';
             var v3 = 'c';
