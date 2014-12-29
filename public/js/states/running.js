@@ -6,11 +6,10 @@
  * running.js
  * Running game state 
  */
-
-var RunningState = function(){
-
+var RunningState = function(_Polygons){
+    
     var RunningStateClass = function(){
-        
+        this.Polygons = _Polygons;
     };
     
     RunningStateClass.prototype.preload = function(){};
@@ -18,14 +17,9 @@ var RunningState = function(){
     RunningStateClass.prototype.create = function(){
         this.game.stage.backgroundColor = '#FAED95';
         var self = this;
-        require(['js/utils/polygons.js'], function(polygons){
-            self.Polygons = polygons.getInstance();
-            drawGrid(self);
-            
-            self.numberOfCells = self.game.stage.width * self.game.stage.height * 0.01;
-            
-            diagonal(self);
-        });
+        drawGrid(self);
+        self.numberOfCells = self.game.stage.width * self.game.stage.height * 0.01;
+        diagonal(self);
     };
     
     RunningStateClass.prototype.update = function(){};
@@ -129,11 +123,12 @@ var RunningState = function(){
     return new RunningStateClass();
 };
 
+
 //define module export
-define(function () {
+define(['utils/polygons'], function (_Polygons) {
     return {
         getState: function () {
-            return new RunningState();
+            return new RunningState(_Polygons.getInstance());
         }
     };
 });

@@ -6,18 +6,23 @@
  * states.js
  * module that handles states loading
  */
-var states = ['main', 'running'];
+var states = ['running'];
 var defaultState = 'main';
+states.push(defaultState);
 
-states.forEach(function(state){
-    loadState(state);
-});
+loadState(states.shift(), states);
 
-function loadState(state){
-    require(['js/states/' + state + '.js'], function(handler){
+function loadState(state, rest){
+    require(['states/' + state], function(handler){
         game.state.add(state, handler.getState(), false);
-        if(defaultState == state){
+
+        if(rest.length > 0){
+            var nextState = rest.shift();
+            loadState(nextState, rest);
+        }else{
+            //last state is the defaultState
             game.state.start(state);
         }
     });
 }
+
