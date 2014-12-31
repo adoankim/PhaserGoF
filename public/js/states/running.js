@@ -6,23 +6,83 @@
  * running.js
  * Running game state 
  */
-var RunningState = function(_Polygons){
+var RunningState = function(Polygons, GOFManager){
     
     var RunningStateClass = function(){
-        this.Polygons = _Polygons;
+       this.cellsSprites = [];
     };
     
-    RunningStateClass.prototype.preload = function(){};
+    RunningStateClass.prototype.preload = function(){
+        this.game.load.json('basic_patterns', '/assets/patterns/basics.json');
+    };
     
     RunningStateClass.prototype.create = function(){
+        patternsSetup();
+
         this.game.stage.backgroundColor = '#FAED95';
-        var self = this;
-        drawGrid(self);
-        self.numberOfCells = self.game.stage.width * self.game.stage.height * 0.01;
-        diagonal(self);
+        drawGrid(this);
+        this.numberOfCells = this.game.stage.width * this.game.stage.height * 0.01;
+
+        
+     
     };
     
-    RunningStateClass.prototype.update = function(){};
+    
+    function patternsSetup(){
+        setPattern(this.game.cache.getJSON('basic_patterns')['block'], 
+                {'x' : 1, 'y': 1});
+        setPattern(this.game.cache.getJSON('basic_patterns')['boat'], 
+                {'x' : 4, 'y': 4});
+        setPattern(this.game.cache.getJSON('basic_patterns')['blinker'], 
+                {'x' : 8, 'y': 8});
+        setPattern(this.game.cache.getJSON('basic_patterns')['toad'], 
+                {'x' : 11, 'y': 11});
+        setPattern(this.game.cache.getJSON('basic_patterns')['beehive'], 
+                {'x' : 15, 'y': 15});
+        setPattern(this.game.cache.getJSON('basic_patterns')['loaf'], 
+                {'x' : 19, 'y': 19});
+        setPattern(this.game.cache.getJSON('basic_patterns')['lwss'], 
+                {'x' : 40, 'y': 50});
+        setPattern(this.game.cache.getJSON('basic_patterns')['lwss'], 
+                {'x' : 47, 'y': 50});
+        setPattern(this.game.cache.getJSON('basic_patterns')['lwss'], 
+                {'x' : 54, 'y': 50});
+                
+                
+    }
+    
+    function setPattern(pattern, offset){
+        if(offset === undefined){
+            offset = {'x' : 0, 'y' : 0};
+        }
+        
+        pattern.map(function(cell){
+            GOFManager.addCell({'x' : cell.x + offset.x, 'y' : cell.y + offset.y});
+        })
+    }
+    
+ 
+    function stepGeneration(){
+        var livingCells = GOFManager.getLivingCells();
+        this.cellsSprites.map(function(sprite){
+            sprite.clear();
+        });
+        this.cellsSprites = [];
+        
+        if(livingCells.length == 0){
+            this.timer.stop(true);
+            return;
+        }
+        
+        livingCells.forEach(function(val){
+            drawRect(this, [val.x, val.y], {'color' : '#FF0000'});
+        }.bind(this));
+        GOFManager.calculateNextGeneration();
+    }
+    
+    RunningStateClass.prototype.update = function(){
+        stepGeneration.bind(this)();
+    };
 
     /**
      * Privated method that draw a diagonal based on the width of the main canvas
@@ -40,7 +100,7 @@ var RunningState = function(_Polygons){
      * @param sprite Phaser.Sprite
      */
     function spriteAlphaEasing(sprite){
-        self.game.add.tween(sprite).to({alpha : 0}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        self.game.add.tween(sprite).to({alpha : 0.3}, 500, Phaser.Easing.Linear.None, true, 0, 1000, true);
     }
 
     /**
@@ -52,8 +112,9 @@ var RunningState = function(_Polygons){
      */
     function drawRect(self, pos, style, effects){
         var rect = self.game.add.bitmapData(8, 8);
+        self.cellsSprites.push(rect);
         rect.ctx.fillStyle = style.color;
-        self.Polygons.drawRect(rect.ctx, 8);
+        Polygons.drawRect(rect.ctx, 8);
         var x = pos[0] * 10 + 5;
         var y = pos[1] * 10 + 5;
         var rectSprite = self.game.add.sprite(x, y, rect);
@@ -77,7 +138,7 @@ var RunningState = function(_Polygons){
         var style = params.style;
         while(dirStep < params.bound){
             var dirParams = getDrawDirectionParams(dirStep);
-            self.Polygons.drawLine(self.grid.ctx, dirParams.from, dirParams.to, style);
+            Polygons.drawLine(self.grid.ctx, dirParams.from, dirParams.to, style);
             dirStep += params.step;
         }
     }
@@ -112,10 +173,10 @@ var RunningState = function(_Polygons){
         });
         
         //And finally we draw the grid bounds
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : 0.5}, {'x' : stage.width, 'y' : 0.5}, style);
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : stage.height-0.5}, {'x' : stage.width, 'y' :  stage.height-0.5}, style);
-        self.Polygons.drawLine(self.grid.ctx, {'x' : 0.5, 'y' : 0}, {'x' : 0.5, 'y' : stage.height}, style);
-        self.Polygons.drawLine(self.grid.ctx, {'x' : stage.width-0.5, 'y' : 0}, {'x' : stage.width-0.5, 'y' : stage.height}, style);
+        Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : 0.5}, {'x' : stage.width, 'y' : 0.5}, style);
+        Polygons.drawLine(self.grid.ctx, {'x' : 0, 'y' : stage.height-0.5}, {'x' : stage.width, 'y' :  stage.height-0.5}, style);
+        Polygons.drawLine(self.grid.ctx, {'x' : 0.5, 'y' : 0}, {'x' : 0.5, 'y' : stage.height}, style);
+        Polygons.drawLine(self.grid.ctx, {'x' : stage.width-0.5, 'y' : 0}, {'x' : stage.width-0.5, 'y' : stage.height}, style);
        
 
     }
@@ -125,10 +186,10 @@ var RunningState = function(_Polygons){
 
 
 //define module export
-define(['utils/polygons'], function (_Polygons) {
+define(['utils/polygons', 'unit/GOFManager'], function (Polygons, GOFManager) {
     return {
         getState: function () {
-            return new RunningState(_Polygons.getInstance());
+            return new RunningState(Polygons.getInstance(), GOFManager.getInstance(80, 60));
         }
     };
 });
