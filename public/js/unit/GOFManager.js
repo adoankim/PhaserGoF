@@ -30,6 +30,14 @@ function GOFManager(DirectedGraph, xBound, yBound){
     GOFManagerClass.prototype.checkCell = function(pos){
         return this.aliveCells.indexOf(pos.x + '-' + pos.y) != -1;
     }
+    
+    /**
+     * Method that returns the list living cells 
+     * @return Array of Cells [{x, y}, ..., {x, y}]
+     */
+    GOFManagerClass.prototype.getLivingCells = function(){
+        return this.aliveCells.map(cellFormatTransform);
+    }
 
     /**
      * Method that calculate the next generation of living cells
@@ -49,13 +57,21 @@ function GOFManager(DirectedGraph, xBound, yBound){
         
         applyRulesToCells(this)
     
-        return this.aliveCells.map(function(val){
-            var pos = val.split('-')
-            return {'x' : pos[0], 'y' : pos[1]};
-        })
+        return this.aliveCells.map(cellFormatTransform);
     }
     
     // PRIVATE METHODS BELOW
+    
+    /**
+     * Transforming method that passes a 'x-y' string format to an 
+     * object representation {x, y}
+     * @param val cell label
+     * @return object {x, y}
+     */
+    function cellFormatTransform(val){
+            var pos = val.split('-')
+            return {'x' : parseInt(pos[0]), 'y' : parseInt(pos[1])};
+    }
     
     /**
      * Privated method that adds the vertex to the given list and DirectedGraph instance
@@ -164,15 +180,15 @@ if(typeof(define) === 'function'){
     define(['unit/DirectedGraph'], function (DirectedGraph) {
         return {
             getInstance: function (xBound, yBound) {
-                return new GOFManager(DirectedGraph, xBound, yBound);
+                return new GOFManager(DirectedGraph.getClass, xBound, yBound);
             }
         };
     });
 
-}
-
-//for testing purposes
-module.exports = function(xBound, yBound){
-    var DirectedGraph = require('./DirectedGraph.js');
-    return new GOFManager(DirectedGraph, xBound, yBound);
+}else{
+    //for testing purposes
+    module.exports = function(xBound, yBound){
+        var DirectedGraph = require('./DirectedGraph.js');
+        return new GOFManager(DirectedGraph, xBound, yBound);
+    }
 }

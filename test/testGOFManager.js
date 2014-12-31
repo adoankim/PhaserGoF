@@ -17,7 +17,7 @@ var GOFManagerClass = require('../public/js/unit/GOFManager.js');
 describe('GOFManager', function(){
     
     describe('#addCell(pos)', function(){
-        var GOFMan = new GOFManagerClass(10, 10);
+        var GOFMan = new GOFManagerClass(3, 3);
         it('should permit to add a cell in a given position', function(){
             var newCell = {'x' : 0, 'y' : 0};
             var addedCell = GOFMan.addCell(newCell);
@@ -25,8 +25,21 @@ describe('GOFManager', function(){
         })
     })
     
+    describe('#getLivingCells()', function(){
+        var GOFMan = new GOFManagerClass(3, 3);
+        it('should return a list of living cells', function(){
+            var cellA = {'x' : 0, 'y' : 0};
+            var cellB = {'x' : 1, 'y' : 0};
+            GOFMan.addCell(cellA);
+            GOFMan.addCell(cellB);
+
+            var livingCells = GOFMan.getLivingCells();
+            livingCells.should.deep.equal([cellA, cellB]);
+        })
+    })
+    
     describe('#checkCell(pos)', function(){
-        var GOFMan = new GOFManagerClass(10, 20);
+        var GOFMan = new GOFManagerClass(3, 3);
         it('should return if a cell is alive or not', function(){
             var cell = {'x' : 0, 'y' : 0};
             GOFMan.addCell(cell);

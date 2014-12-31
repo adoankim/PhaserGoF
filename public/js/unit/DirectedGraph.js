@@ -90,10 +90,10 @@ if(typeof(define) === 'function'){
             }
         };
     });
-}
-
-//for testing purposes
-module.exports = function(){
-    var _ = require('underscore');
-    return new DirectedGraph(_);
+}else{
+    //for testing purposes
+    module.exports = function(){
+        var _ = require('underscore');
+        return new DirectedGraph(_);
+    }
 }
