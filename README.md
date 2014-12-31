@@ -5,9 +5,9 @@ Yet another Game of Life test in Phaser.io
 
 Solution
 --------
-To calculate wich cells lives or dies, a directed Graph is built 
-and the inbound grade for each vertex is used in order to calculate next 
-generation cells.
+To calculate which cells lives or dies: a directed Graph is built 
+and the inbound grade of each vertex is used at the rule matching process to 
+calculate next generation cells.
 
 Basic commands
 --------------
